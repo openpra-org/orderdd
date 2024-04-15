@@ -16,13 +16,9 @@ tf.tpu.experimental.initialize_tpu_system(resolver)
 # Instantiate a distribution strategy
 strategy = tf.distribute.TPUStrategy(resolver)
 
-! git
-
 # Define the operands and operators
 OPERANDS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 OPERATORS = ['|', '&']
-
-! apt install
 
 # Read the input data
 import pandas as pd
@@ -174,8 +170,6 @@ print(len(X_expressions))
 print(len(Y_expressions))
 print((X_expressions))
 print((Y_expressions))
-
-!pip install dd
 
 import dd.autoref as _bdd
 
