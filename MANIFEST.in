@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+recursive-include orderdd *
+prune tests/
+exclude *.ipynb
+exclude notebooks/
+exclude scripts/
