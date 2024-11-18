@@ -1,2 +1,8 @@
 itertools
 random
+dd
+tqdm
+multiprocessing
+pandas
+tensorflow
+pyeda
