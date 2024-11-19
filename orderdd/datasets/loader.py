@@ -2,7 +2,6 @@
 
 import numpy as np
 
-from keras.api_export import keras_export
 from keras.utils.file_utils import get_file
 
 

@@ -1,6 +1,9 @@
 from itertools import product, permutations
 from typing import List, Tuple
+from multiprocessing import Pool
+from itertools import chain
 import re
+
 
 def generate_boolean_expressions(operands: List[str], operators: List[str], num_operands=None) -> List[str]:
     if num_operands is None:
@@ -79,6 +82,17 @@ def find_unique_operands(expression: str, exclusion_list: List[str], operators: 
     unique_operands = sorted(set(operands))
     return unique_operands
 
+def process_single_expression(expression: str, operators: List[str]):
+    available_operands = find_unique_operands(expression=expression, exclusion_list=['(', ')'], operators=operators)
+    results = []
+    if len(available_operands) == 1:
+        results.append((expression, (available_operands[0],)))
+    else:
+        variable_orderings = list(permutations(available_operands))
+        for ordering in variable_orderings:
+            results.append((expression, ordering))
+    return results
+
 def generate_expressions(operands: List[str], operators: List[str], num_operands: int) -> Tuple[List[str], List[Tuple[str, ...]]]:
 
     if num_operands < 1 or num_operands > len(operands):
@@ -87,22 +101,20 @@ def generate_expressions(operands: List[str], operators: List[str], num_operands
         num_operands = len(operands)
 
     unique_expressions: List[str] = generate_boolean_expressions_upto(operands, operators, num_operands)
-    print('unique expressions:', len(unique_expressions))
-    X_expressions: List[str] = []
-    Y_expressions: List[Tuple[str, ...]] = []
-    # For each expression in unique_expressions
-    for expression in unique_expressions:
-        available_operands = find_unique_operands(expression=expression, exclusion_list=['(', ')'], operators=operators)
-        if len(available_operands) == 1:
-            # If there is only one operand, add the expression and the operand as a tuple
-            X_expressions.append(expression)
-            Y_expressions.append((available_operands[0],))
-        else:
-            # Get all unique permutations of the variable orderings
-            variable_orderings = list(permutations(available_operands))
-            # For each variable ordering, add the expression to X_expressions
-            # and the corresponding ordering to Y_expressions
-            for ordering in variable_orderings:
-                X_expressions.append(expression)  # Add the expression once for each ordering
-                Y_expressions.append(ordering)
-    return X_expressions, Y_expressions
+    print('Number of unique expressions:', len(unique_expressions))
+
+    # Prepare the arguments for pool.starmap
+    pool_args = [(expression, operators) for expression in unique_expressions]
+
+    # Use multiprocessing Pool to process expressions in parallel
+    with Pool() as pool:
+        # Map the processing function to each expression and operators
+        results = pool.starmap(process_single_expression, pool_args)
+
+    # Flatten the list of results
+    all_results = list(chain.from_iterable(results))
+
+    # Unzip the results into X_expressions and Y_expressions
+    x_expressions, y_expressions = zip(*all_results)
+
+    return list(x_expressions), list(y_expressions)

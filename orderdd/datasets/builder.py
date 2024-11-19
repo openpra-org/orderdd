@@ -16,8 +16,10 @@ def process_expression(process_args):
 
 
 if __name__ == "__main__":
-    my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f', 'g'})
-    my_operators: List[str] = list({'|', '&'})
+    #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f', 'g'})
+    #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f'})
+    my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e'})
+    my_operators: List[str] = list({'|', '&', '^'})
     X_expressions, Y_expressions = generate_expressions(operands=my_operands, operators=my_operators,
                                                         num_operands=len(my_operands))
     print(X_expressions[0:10])
@@ -33,7 +35,7 @@ if __name__ == "__main__":
     # Use a multiprocessing pool to process the expressions in parallel
     with Pool() as pool:
         # Use tqdm to display a progress bar
-        results = list(tqdm(pool.imap(process_expression, args), total=len(X_expressions), desc="Processing Expressions"))
+        results = list(tqdm(pool.imap(process_expression, args), total=len(X_expressions), desc="Building bdds.."))
 
     # Write the results to a CSV file
     with open('inputs.csv', 'w', newline='') as input_csv:

@@ -9,7 +9,7 @@ OPERANDS: List[str] = ['a', 'b', 'c', 'd', 'e']
 OPERATORS: List[str] = ['|', '&']
 """List[str]: The default operators to use in boolean expressions."""
 
-def generate_boolean_expressions(operands: List[str] = OPERANDS, operators: List[str] = OPERATORS, N: int = 4) -> List[str]:
+def generate_boolean_expressions(operands: List[str], operators: List[str], N: int = 4) -> List[str]:
     """
     Generate all possible boolean expressions of length N using the given operands and operators.
 
