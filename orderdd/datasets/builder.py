@@ -1,6 +1,7 @@
 from tqdm import tqdm
 from multiprocessing import Pool
 import csv
+import gzip
 from typing import List
 
 from bdd_sizer import var_count_for_ordering
@@ -18,7 +19,8 @@ def process_expression(process_args):
 if __name__ == "__main__":
     #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f', 'g'})
     #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f'})
-    my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e'})
+    #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e'})
+    my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f'})
     my_operators: List[str] = list({'|', '&', '^'})
     X_expressions, Y_expressions = generate_expressions(operands=my_operands, operators=my_operators,
                                                         num_operands=len(my_operands))
@@ -38,7 +40,7 @@ if __name__ == "__main__":
         results = list(tqdm(pool.imap(process_expression, args), total=len(X_expressions), desc="Building bdds.."))
 
     # Write the results to a CSV file
-    with open('inputs.csv', 'w', newline='') as input_csv:
+    with gzip.open('inputs.csv.gz', 'wt') as input_csv:
         csv_writer = csv.writer(input_csv)
         csv_writer.writerow(["expression", "ordering", "bdd_size", "reordering", "bdd_size_reordered"])
 
@@ -51,4 +53,4 @@ if __name__ == "__main__":
             csv_writer.writerow([expression, ordering_str, bdd_size, reordering_str, bdd_size_reordered])
 
             # Print the row
-            #print(f"{expression},{ordering_str},{bdd_size},{reordering_str},{bdd_size_reordered}")
+            print(f"{expression},{ordering_str},{bdd_size},{reordering_str},{bdd_size_reordered}")
