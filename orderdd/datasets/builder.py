@@ -21,7 +21,7 @@ if __name__ == "__main__":
     #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f'})
     #my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e'})
     my_operands: List[str] = list({'a', 'b', 'c', 'd', 'e', 'f'})
-    my_operators: List[str] = list({'|', '&', '^'})
+    my_operators: List[str] = list({'|', '&'})
     X_expressions, Y_expressions = generate_expressions(operands=my_operands, operators=my_operators,
                                                         num_operands=len(my_operands))
     print(X_expressions[0:10])
@@ -53,4 +53,4 @@ if __name__ == "__main__":
             csv_writer.writerow([expression, ordering_str, bdd_size, reordering_str, bdd_size_reordered])
 
             # Print the row
-            print(f"{expression},{ordering_str},{bdd_size},{reordering_str},{bdd_size_reordered}")
+            #print(f"{expression},{ordering_str},{bdd_size},{reordering_str},{bdd_size_reordered}")
