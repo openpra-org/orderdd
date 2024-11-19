@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orderdd"
+description = "Utility for learning and predicting optimal variable orderings for binary decision diagrams."
+version = "0.0.1"
+readme.content-type = "text/markdown"
+readme.file = "README.md"
+authors = [
+    { name = "Arjun Earthperson", email = "mail@earthperson.org" }
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering",
+    "Typing :: Typed"
+]
+dependencies = [
+    "argparse",
+    "collections",
+    "dd",
+    "numpy",
+    "pandas",
+    "tqdm"
+]
+
+[project.urls]
+Repository = "https://github.com/openpra-org/orderdd"
+Documentation = "https://docs.openpra.org"
+Tracker = "https://youtrack.openpra.org"
+Homepage = "https://openpra.org"
+
+[project.optional-dependencies]
+default = []
+dev = [
+    "autopep8",
+    "build",
+    "pyarrow",
+    "pytest",
+    "pytest-cov",
+    "pylint",
+    "pylint[spelling]",
+    "ruff",
+    "twine"
+]
+static-analysis = [
+    "autopep8",
+    "ruff"
+]
+test = [
+    "pytest",
+    "pytest-cov",
+    "ruff"
+]
+
+[project.scripts]
+
+[tool.pytest.ini_options]
+addopts = "-ra -v --strict-markers"
+testpaths = [
+    "tests"
+]
+
+[tool.setuptools]
+packages = ["orderdd"]
