@@ -19,12 +19,16 @@ setup(
     install_requires=[
         'collections',
         'dd',
+        'keras',
         'itertools',
         'matplotlib',
-        'numpy'
+        'numpy',
+        'tqdm',
+        'pyeda',
         'pandas',
-        'sklearn',
-        'tensorflow'
+        'tf-keras',
+        'tensorflow[and-cuda]',
+        'jupyter'
     ],
     extras_require={
         'cuda': [
