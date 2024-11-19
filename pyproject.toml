@@ -31,7 +31,6 @@ classifiers = [
 ]
 dependencies = [
     "argparse",
-    "collections",
     "dd",
     "numpy",
     "pandas",
