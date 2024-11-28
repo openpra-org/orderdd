@@ -4,7 +4,7 @@ job("orderdd") {
         workerTags("swarm-worker")
     }
 
-    val registry = "packages.space.openpra.org/p/openpra/containers/"
+    val registry = "packages-space.openpra.org/p/openpra/containers/"
     val image = "orderdd"
     val remote = "$registry$image"
 
